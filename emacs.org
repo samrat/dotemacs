@@ -1,34 +1,36 @@
 * Package initialization
 #+BEGIN_SRC emacs-lisp
-(require 'package)
-  (setq package-archives
-        '(("melpa" . "http://melpa.milkbox.net/packages/")
-          ("org" . "http://orgmode.org/elpa/")
-          ("gnu" . "http://elpa.gnu.org/packages/")))
-  (package-initialize)
-  
-  (when (not package-archive-contents)
-    (package-refresh-contents))
-  
-  (defvar package-list '(better-defaults
-                         cider
-                         geiser
-                         magit
-                         rainbow-delimiters
-                         auto-complete
-                         ac-nrepl
-                         ag
-                         color-theme-sanityinc-solarized
-                         markdown-mode
-                         zenburn-theme))
-  
-  (dolist (p package-list)
-    (when (not (package-installed-p p))
-      (package-install p)))
+  (require 'package)
+    (setq package-archives
+          '(("melpa" . "http://melpa.milkbox.net/packages/")
+            ("marmalade" . "http://marmalade-repo.org/packages/")
+            ("org" . "http://orgmode.org/elpa/")
+            ("gnu" . "http://elpa.gnu.org/packages/")))
+    (package-initialize)
+    
+    (when (not package-archive-contents)
+      (package-refresh-contents))
+    
+    (defvar package-list '(better-defaults
+                           cider
+                           geiser
+                           magit
+                           rainbow-delimiters
+                           auto-complete
+                           ac-nrepl
+                           ag
+                           color-theme-sanityinc-solarized
+                           markdown-mode
+                           zenburn-theme))
+    
+    (dolist (p package-list)
+      (when (not (package-installed-p p))
+        (package-install p)))
 #+END_SRC
 * Options
 #+BEGIN_SRC emacs-lisp
-(setq inhibit-startup-screen t)
+  (setq inhibit-startup-screen t)
+  
 #+END_SRC
 * General
 ** Smex
