@@ -28,17 +28,15 @@
 #+END_SRC
 * Options
 #+BEGIN_SRC emacs-lisp
-  (when window-system
-    (toggle-scroll-bar nil)
-    (tool-bar-mode -1)
-    (tooltip-mode -1))
+(setq inhibit-startup-screen t)
 #+END_SRC
+
 * General
-** Smex
+
+** Magit
 #+BEGIN_SRC emacs-lisp
-  (setq smex-save-file (concat user-emacs-directory ".smex-items"))
-  (smex-initialize)
-  (global-set-key (kbd "M-x") 'smex)
+  (global-set-key (kbd "C-c g") 'magit-status)
+  
 #+END_SRC
 ** Ido
 #+BEGIN_SRC emacs-lisp
