@@ -106,11 +106,16 @@ From [[http://emacsredux.com/blog/2013/04/21/edit-files-as-root/][emacsredux]]
 
 *** Cider
 #+BEGIN_SRC emacs-lisp
-(add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
-(setq cider-auto-select-error-buffer t)
+  (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+  (setq cider-auto-select-error-buffer t)
+  
+  (add-hook 'cider-repl-mode-hook 'paredit-mode)
+  (add-hook 'cider-repl-mode-hook 'rainbow-delimiters-mode)
+#+END_SRC
+** Emacs lisp
+#+BEGIN_SRC emacs-lisp
+(add-hook 'emacs-lisp-mode-hook 'paredit-mode)
 
-(add-hook 'cider-repl-mode-hook 'paredit-mode)
-(add-hook 'cider-repl-mode-hook 'rainbow-delimiters-mode)
 #+END_SRC
 ** Racket
 #+BEGIN_SRC emacs-lisp
