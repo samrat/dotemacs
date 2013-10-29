@@ -159,15 +159,19 @@
      (set-face-foreground 'magit-diff-add "green4")
      (set-face-foreground 'magit-diff-del "red3")))
 #+END_SRC
+
 * Org
 #+BEGIN_SRC emacs-lisp
-(require 'org)
-(require 'ox-latex)
-(setq org-directory "~/Dropbox/notes")
-(setq org-agenda-files (list org-directory))
-#+END_SRC
+  (require 'org-protocol)
+  (require 'ox-latex)
+  (setq org-directory "~/Dropbox/notes")
+  (setq org-agenda-files (list org-directory))
 
-** Org keys
+  (setq org-startup-indented t)
+  (setq org-startup-folded t)
+  (setq org-src-fontify-natively t)
+#+END_SRC
+** Org keys   
 #+BEGIN_SRC emacs-lisp
 (define-key global-map "\C-cc" 'org-capture)
 (define-key global-map "\C-cl" 'org-store-link)
