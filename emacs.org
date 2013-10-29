@@ -244,13 +244,26 @@ From [[http://emacsredux.com/blog/2013/04/21/edit-files-as-root/][emacsredux]]
         ("j" "Journal" entry (file+datetree "journal.org") "* %i%?")
         ("C" "Coursera" entry (file+headline "samrat.org" "Coursera")
          "* NEXT %?%a\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n%i" :prepend t)
-        ("w"
-          "Default template"
+        ("w" "Default template"
           entry
           (file+headline "~/notes/samrat.org" "Bookmarks")
-          "* %c, %u\n\n  %i"
-          :empty-lines 1)))
-
+          "* %c\n %u\n\n  %i")))
+#+END_SRC
+*** Org protocol
+#+BEGIN_SRC emacs-lisp
+  (defun org-protocol-capture-and-finalize (info)
+    "Like org-protocol-capture, but finalizes capture."
+    (if (and (boundp 'org-stored-links)
+             (progn (org-protocol-do-capture info)
+                    (org-capture-finalize)))
+        (message "Item captured."))
+    nil)
+  
+  (setq org-protocol-protocol-alist
+               '(("bookmark"
+                  :protocol "bookmark"
+                  :function org-protocol-capture-and-finalize)))
+  
 #+END_SRC
 * Feeds
 #+BEGIN_SRC emacs-lisp
