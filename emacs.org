@@ -22,7 +22,7 @@
                            color-theme-sanityinc-solarized
                            markdown-mode
                            zenburn-theme))
-    
+
     (dolist (p package-list)
       (when (not (package-installed-p p))
         (package-install p)))
@@ -357,5 +357,4 @@ From [[http://emacsredux.com/blog/2013/04/21/edit-files-as-root/][emacsredux]]
         "http://isbullsh.it/rss.xml"
         "http://feeds.feedburner.com/MusingsOfALispnik"
         "http://feeds.feedburner.com/sl4m"))
-
 #+END_SRC
