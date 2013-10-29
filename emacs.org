@@ -1,26 +1,26 @@
 * Package initialization
 #+BEGIN_SRC emacs-lisp
-  (require 'package)
-  (add-to-list 'package-archives
-    '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(require 'package)
+  (setq package-archives
+        '(("melpa" . "http://melpa.milkbox.net/packages/")
+          ("org" . "http://orgmode.org/elpa/")
+          ("gnu" . "http://elpa.gnu.org/packages/")))
   (package-initialize)
   
   (when (not package-archive-contents)
     (package-refresh-contents))
   
-  (defvar package-list '(starter-kit
-                        starter-kit-lisp
-                        starter-kit-bindings
-                        starter-kit-eshell
-                        cider
-                        geiser
-                        magit
-                        rainbow-delimiters
-                        auto-complete
-                        ac-nrepl
-                        ag
-                        color-theme-sanityinc-solarized
-                        zenburn-theme))
+  (defvar package-list '(better-defaults
+                         cider
+                         geiser
+                         magit
+                         rainbow-delimiters
+                         auto-complete
+                         ac-nrepl
+                         ag
+                         color-theme-sanityinc-solarized
+                         markdown-mode
+                         zenburn-theme))
   
   (dolist (p package-list)
     (when (not (package-installed-p p))
