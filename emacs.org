@@ -30,26 +30,18 @@
 #+BEGIN_SRC emacs-lisp
 (setq inhibit-startup-screen t)
 #+END_SRC
-
 * General
-
+** Smex
+#+BEGIN_SRC emacs-lisp
+(setq smex-save-file "~/.emacs.d/.smex-items")
+(smex-initialize)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+#+END_SRC
 ** Magit
 #+BEGIN_SRC emacs-lisp
+  (setq magit-commit-all-when-nothing-staged 'ask)
   (global-set-key (kbd "C-c g") 'magit-status)
-  
-#+END_SRC
-** Ido
-#+BEGIN_SRC emacs-lisp
-(ido-mode t)
-(ido-ubiquitous t)
-(setq ido-enable-prefix nil
-      ido-enable-flex-matching t
-      ido-auto-merge-work-directories-length nil
-      ido-create-new-buffer 'always
-      ido-use-filename-at-point 'guess
-      ido-use-virtual-buffers t
-      ido-handle-duplicate-virtual-buffers 2
-      ido-max-prospects 10)
 #+END_SRC
 ** GPG
 #+BEGIN_SRC emacs-lisp
