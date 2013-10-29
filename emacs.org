@@ -1,0 +1,327 @@
+* Package initialization
+#+BEGIN_SRC emacs-lisp
+  (require 'package)
+  (add-to-list 'package-archives
+    '("melpa" . "http://melpa.milkbox.net/packages/") t)
+  (package-initialize)
+  
+  (when (not package-archive-contents)
+    (package-refresh-contents))
+  
+  (defvar package-list '(starter-kit
+                        starter-kit-lisp
+                        starter-kit-bindings
+                        starter-kit-eshell
+                        cider
+                        geiser
+                        magit
+                        rainbow-delimiters
+                        auto-complete
+                        ac-nrepl
+                        ag
+                        color-theme-sanityinc-solarized
+                        zenburn-theme))
+  
+  (dolist (p package-list)
+    (when (not (package-installed-p p))
+      (package-install p)))
+#+END_SRC
+* Options
+#+BEGIN_SRC emacs-lisp
+  (when window-system
+    (toggle-scroll-bar nil)
+    (tool-bar-mode -1)
+    (tooltip-mode -1))
+#+END_SRC
+* General
+** Smex
+#+BEGIN_SRC emacs-lisp
+  (setq smex-save-file (concat user-emacs-directory ".smex-items"))
+  (smex-initialize)
+  (global-set-key (kbd "M-x") 'smex)
+#+END_SRC
+** Ido
+#+BEGIN_SRC emacs-lisp
+(ido-mode t)
+(ido-ubiquitous t)
+(setq ido-enable-prefix nil
+      ido-enable-flex-matching t
+      ido-auto-merge-work-directories-length nil
+      ido-create-new-buffer 'always
+      ido-use-filename-at-point 'guess
+      ido-use-virtual-buffers t
+      ido-handle-duplicate-virtual-buffers 2
+      ido-max-prospects 10)
+#+END_SRC
+** GPG
+#+BEGIN_SRC emacs-lisp
+(setq epg-gpg-program "/usr/bin/gpg")
+#+END_SRC
+** Text mode
+#+BEGIN_SRC emacs-lisp
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+(add-hook 'text-mode-hook 'turn-on-flyspell)
+#+END_SRC
+* Theme
+#+BEGIN_SRC emacs-lisp
+  (load-theme 'sanityinc-tomorrow-night t)
+  ;;(powerline-default-theme)
+#+END_SRC
+
+* Start server
+#+BEGIN_SRC emacs-lisp
+(require 'server)
+(unless (server-running-p)
+  (server-start))
+#+END_SRC
+
+* Programming
+** Clojure
+#+BEGIN_SRC emacs-lisp
+(add-hook 'clojure-mode-hook 'paredit-mode)
+#+END_SRC
+
+*** Cider
+#+BEGIN_SRC emacs-lisp
+(add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+(setq cider-auto-select-error-buffer t)
+
+(add-hook 'cider-repl-mode-hook 'paredit-mode)
+(add-hook 'cider-repl-mode-hook 'rainbow-delimiters-mode)
+#+END_SRC
+** Racket
+#+BEGIN_SRC emacs-lisp
+(setq geiser-active-implementations '(racket))
+#+END_SRC
+
+** SML
+#+BEGIN_SRC emacs-lisp
+(setenv "PATH" (concat "/usr/lib/smlnj/bin:" (getenv "PATH")))
+(setq exec-path (cons "/usr/lib/smlnj/bin"  exec-path))
+
+(defun sml-eval-buffer ()
+  "If sml repl exists, then restart it else create a new repl"
+  (interactive)
+  (when (get-buffer "*sml*")
+    (with-current-buffer "*sml*"
+      (when (process-live-p "sml")
+        (comint-send-eof)))
+    (sleep-for 0.2))
+  (sml-run "sml" "")
+  (sml-prog-proc-load-file buffer-file-name t))
+
+(eval-after-load 'sml-mode
+  '(progn
+    (define-key sml-mode-map (kbd "C-j") 'reindent-then-newline-and-indent)
+    (define-key sml-mode-map (kbd "C-c C-s") 'sml-run)
+    (define-key sml-mode-map (kbd "C-c C-v") 'sml-eval-buffer)))
+#+END_SRC
+
+* Ecstatic
+#+BEGIN_SRC emacs-lisp
+(defvar blog-dir "/home/samrat/code/samrat.github.com/"
+  "Path to blog src")
+
+(defun ecstatic/get-post-file (title)
+  "Return the filename for a new post given the TITLE."
+  (expand-file-name (format "%s/src/posts/%s-%s.org"
+                            blog-dir
+                            (format-time-string "%Y-%m-%d")
+                            (replace-regexp-in-string "\\W+" "-" (downcase title)))))
+
+
+(defun ecstatic/new-post (title)
+  "Start a new Ecstatic blog post."
+  (interactive "MTitle: ")
+  (find-file (ecstatic/get-post-file title))
+  (insert "#+begin_html\n---\n")
+  (insert (format "title: %s\n" title))
+  (insert (format-time-string "date: %Y-%m-%dT%H:%M:%SZ\n" nil t))
+  (insert (format "tags: \n"))
+  (insert "---\n#+end_html\n\n"))
+
+(defun ecstatic/update-date ()
+  "Update the YAML date element to the current time."
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (search-forward-regexp "^date: +")
+    (kill-line)
+    (insert (format-time-string "%Y-%m-%dT%H:%M:%SZ" nil t))))
+#+END_SRC
+* VC
+#+BEGIN_SRC emacs-lisp
+(eval-after-load 'diff-mode
+  '(progn
+     (set-face-foreground 'diff-added "green4")
+     (set-face-foreground 'diff-removed "red3")))
+
+(eval-after-load 'magit
+  '(progn
+     (set-face-foreground 'magit-diff-add "green4")
+     (set-face-foreground 'magit-diff-del "red3")))
+#+END_SRC
+* Org
+#+BEGIN_SRC emacs-lisp
+(require 'org)
+(require 'ox-latex)
+(setq org-directory "~/Dropbox/notes")
+(setq org-agenda-files (list org-directory))
+#+END_SRC
+
+** Org keys
+#+BEGIN_SRC emacs-lisp
+(define-key global-map "\C-cc" 'org-capture)
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+;;(define-key global-map "\C-cb" 'org-iswitchb)
+#+END_SRC
+** Org babel
+#+BEGIN_SRC emacs-lisp
+(require 'ob)
+(require 'ob-tangle)
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((clojure . t)
+   (scheme . t)
+   (python . t)
+   (sh . t)
+   (R . t)
+   (haskell . t)))
+
+(setq org-confirm-babel-evaluate nil)
+(setq org-src-window-setup 'current-window)
+
+(setq org-babel-default-header-args
+      '((:session . "none")
+        (:results . "replace")
+        (:exports . "code")
+        (:cache . "no")
+        (:noweb . "yes")
+        (:hlines . "no")
+        (:tangle . "no")
+        (:padnewline . "yes")))
+#+END_SRC
+** Capture templates
+#+BEGIN_SRC emacs-lisp
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline "todo.org" "Unsorted") "* TODO %i%?")
+        ("n" "Notes" entry (file+headline "notes.org" "Notes") "** %? ")
+        ("j" "Journal" entry (file+datetree "journal.org") "* %i%?")
+        ("C" "Coursera" entry (file+headline "samrat.org" "Coursera")
+         "* NEXT %?%a\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n%i" :prepend t)
+        ("w"
+          "Default template"
+          entry
+          (file+headline "~/notes/samrat.org" "Bookmarks")
+          "* %c, %u\n\n  %i"
+          :empty-lines 1)))
+
+#+END_SRC
+* Feeds
+#+BEGIN_SRC emacs-lisp
+(require 'elfeed)
+
+(setq elfeed-feeds
+      '("http://nullprogram.com/feeds/"
+        "http://www.terminally-incoherent.com/blog/feed/"
+        "http://samrat.me/feeds/all.xml"
+        "http://planet.clojure.in/atom.xml"
+        "http://feeds.feedburner.com/alistapart/main"
+        "http://swizec.com/blog/feed/atom"
+        "http://feeds.feedburner.com/adequatelygood"
+        "http://lucumr.pocoo.org/feed.atom"
+        "http://feeds.feedburner.com/brainpickings/rss"
+        "http://feeds.feedburner.com/bkonkle-latest-posts"
+        "http://worrydream.com/feed.xml"
+        "http://briancarper.net/feed"
+        "http://clojurefun.wordpress.com/feed/"
+        "http://feeds.feedburner.com/codinghorror/"
+        "http://danariely.com/feed/"
+        "http://feed.dilbert.com/dilbert/blog"
+        "http://www.eflorenzano.com/blog/feeds/all/"
+        "http://www.exampler.com/blog/"
+        "http://feeds.feedburner.com/feross"
+        "http://feeds.feedburner.com/FlowingData"
+        "http://blog.dscpl.com.au/feeds/posts/default"
+        "http://www.hackwriting.com/feed/"
+        "http://www.jeffwofford.com/?feed=rss2"
+        "http://lethain.com/feeds/all/"
+        "http://www.willmcgugan.com/feed/"
+        "http://blog.jgc.org/feeds/posts/default"
+        "http://www.joelonsoftware.com/rss.xml"
+        "http://www.josscrowcroft.com/feed/"
+        "http://markos.gaivo.net/blog/?feed=rss2"
+        "http://feeds.feedburner.com/DavidCramernet"
+        "http://karlmendes.com/feed/"
+        "http://kennethreitz.com/feeds/all.atom.xml"
+        "http://longform.org/feed.rss"
+        "http://longreads.com/rss/"
+        "http://www.loper-os.org/?feed=rss2"
+        "http://jeremykun.com/feed/"
+        "http://biditacharya.wordpress.com/feed/"
+        "http://mattgemmell.com/atom.xml"
+        "http://matt.might.net/articles/feed.rss"
+        ;;"http://www.mechanicalgirl.com/feeds/all/"
+        "http://mitchellhashimoto.com/rss"
+        "http://blog.mixu.net/feed/"
+        "http://www.morethanseven.net/articles.atom"
+        "http://www.mostly-decidable.org/feeds/posts/default"
+        "http://normansoven.com/feed/"
+        "http://paulbuchheit.blogspot.com/feeds/posts/default"
+        "http://paulrouget.com/index.xml"
+        "http://feeds.feedburner.com/philippbosch"
+        "http://allendowney.blogspot.com/feeds/posts/default"
+        "http://reminiscential.wordpress.com/feed/"
+        "http://feeds.feedburner.com/rudiusmedia/rch"
+        ;; "http://www.saltycrane.com/feeds/latest/"
+        "http://www.sciten.com/rss"
+        "http://feeds.feedburner.com/techoctave"
+        "http://simplebits.com/feed/"
+        "http://slacy.com/blog/feed/"
+        "http://feeds2.feedburner.com/stevelosh"
+        "http://steve-yegge.blogspot.com/atom.xml"
+        "http://sympodial.com/rss"
+        "http://technomancy.us/feed/atom.xml"
+        "http://thadeusb.com/feed.atom"
+        "http://feeds.feedburner.com/JasonShen"
+        "http://feeds.feedburner.com/b-list-entries"
+        "http://www.johndcook.com/blog/feed/"
+        "http://blog.thelifeofkenneth.com/feeds/posts/default"
+        "http://feeds.feedburner.com/ThomasPelletier"
+        "http://feeds2.feedburner.com/UnderstandingUncertainty"
+        "http://feeds.feedburner.com/Vijaykirancom"
+        "http://devblog.avdi.org/feed/"
+        "http://waxy.org/index.xml"
+        "http://terrytao.wordpress.com/feed/"
+        "http://www.wisdomandwonder.com/feed"
+        "http://feeds.feedburner.com/holman"
+        "http://feeds.feedburner.com/ideolalia/zXGt"
+        "http://hobershort.wordpress.com/feed/"
+        ;; "http://antirez.com/rss"
+        "http://feeds.feedburner.com/ChrisGranger"
+        "http://gladwell.typepad.com/gladwellcom/atom.xml"
+        "http://feeds.feedburner.com/catonmat"
+        "http://ignorethecode.net/blog/rss/"
+        "http://jessenoller.com/feed/"
+        "http://www.futurealoof.com/site.rss"
+        "http://feeds.feedburner.com/miraculous"
+        "http://pragmaticstartup.wordpress.com/feed/"
+        "http://prog21.dadgum.com/atom.xml"
+        "http://feeds.feedburner.com/rdegges"
+        "http://semilshah.wordpress.com/feed/"
+        "http://feeds.feedburner.com/SimpleBadLuck"
+        "http://feeds.feedburner.com/zachwill"
+        "http://lesswrong.com/wiki/Homepage/.rss"
+        "http://feeds.feedburner.com/Betterexplained"
+        "http://www.commandlinefu.com/feed/tenup"
+        "http://disclojure.org/feed/"
+        "http://www.learningclojure.com/feeds/posts/default"
+        "http://programmingpraxis.com/feed/"
+        "http://feeds.feedburner.com/thechangelog"
+        "http://whattheemacsd.com/atom.xml"
+        "http://isbullsh.it/rss.xml"
+        "http://feeds.feedburner.com/MusingsOfALispnik"
+        "http://feeds.feedburner.com/sl4m"))
+
+#+END_SRC
