@@ -33,7 +33,14 @@
   (setq inhibit-startup-screen t)
   (show-paren-mode 1)
   (ido-ubiquitous t)
+
+  ;; too lazy to type yes(or no)
   (defalias 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+*** Browser
+#+BEGIN_SRC emacs-lisp
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "conkeror")
 #+END_SRC
 ** Smex
 #+BEGIN_SRC emacs-lisp
