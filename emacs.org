@@ -27,12 +27,14 @@
       (when (not (package-installed-p p))
         (package-install p)))
 #+END_SRC
-* Options
+* General
+** Options
 #+BEGIN_SRC emacs-lisp
   (setq inhibit-startup-screen t)
-  
+  (show-paren-mode 1)
+  (ido-ubiquitous t)
+  (defalias 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
-* General
 ** Smex
 #+BEGIN_SRC emacs-lisp
 (setq smex-save-file "~/.emacs.d/.smex-items")
