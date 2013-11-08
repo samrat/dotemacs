@@ -95,17 +95,16 @@
 ** sudo edit
 From [[http://emacsredux.com/blog/2013/04/21/edit-files-as-root/][emacsredux]]
 #+BEGIN_SRC emacs-lisp
-(defadvice ido-find-file (after find-file-sudo activate)
-  "Find file as root if necessary."
-  (unless (and buffer-file-name
-               (file-writable-p buffer-file-name))
-    (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
+  ;; (defadvice ido-find-file (after find-file-sudo activate)
+  ;;   "Find file as root if necessary."
+  ;;   (unless (and buffer-file-name
+  ;;                (file-writable-p buffer-file-name))
+  ;;     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
 #+END_SRC
 
 * Programming
 #+BEGIN_SRC emacs-lisp
-(add-hook 'prog-mode-hook 'whitespace-mode)
 (add-hook 'prog-mode-hook 'idle-highlight-mode)
 (define-key lisp-mode-shared-map (kbd "RET") 'reindent-then-newline-and-indent)
 #+END_SRC
@@ -131,6 +130,7 @@ From [[http://emacsredux.com/blog/2013/04/21/edit-files-as-root/][emacsredux]]
 ** Racket
 #+BEGIN_SRC emacs-lisp
 (setq geiser-active-implementations '(racket))
+(add-hook 'scheme-mode-hook 'paredit-mode)
 #+END_SRC
 
 ** SML
