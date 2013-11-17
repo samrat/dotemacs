@@ -156,6 +156,11 @@ From [[http://emacsredux.com/blog/2013/04/21/edit-files-as-root/][emacsredux]]
     (define-key sml-mode-map (kbd "C-c C-v") 'sml-eval-buffer)))
 #+END_SRC
 
+** Ruby
+#+BEGIN_SRC emacs-lisp
+(require 'rvm)
+(rvm-use-default)
+#+END_SRC
 * Ecstatic
 #+BEGIN_SRC emacs-lisp
 (defvar blog-dir "/home/samrat/code/samrat.github.com/"
