@@ -161,6 +161,12 @@ From [[http://emacsredux.com/blog/2013/04/21/edit-files-as-root/][emacsredux]]
 (require 'rvm)
 (rvm-use-default)
 #+END_SRC
+
+** Haskell
+#+BEGIN_SRC emacs-lisp
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+
+#+END_SRC
 * Ecstatic
 #+BEGIN_SRC emacs-lisp
 (defvar blog-dir "/home/samrat/code/samrat.github.com/"
