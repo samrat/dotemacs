@@ -34,6 +34,7 @@
   (setq inhibit-startup-screen t)
   (show-paren-mode 1)
   (ido-ubiquitous t)
+  (setq ido-auto-merge-work-directories-length -1)
   
   ;; too lazy to type yes(or no)
   (defalias 'yes-or-no-p 'y-or-n-p)
