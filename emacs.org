@@ -17,6 +17,7 @@
                            magit
                            paredit
                            idle-highlight-mode
+                           autocomplete-mode
                            color-theme-sanityinc-tomorrow
                            rainbow-delimiters
                            auto-complete
@@ -48,11 +49,22 @@
   (setq mac-command-modifier 'meta)
 
   (projectile-global-mode)
+
+  (require 'whitespace-cleanup-mode)
 #+END_SRC
 *** Browser
 #+BEGIN_SRC emacs-lisp
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "conkeror")
+#+END_SRC
+** autocomplete-mode
+#+BEGIN_SRC emacs-lisp
+  (global-auto-complete-mode t)
+  (setq ac-auto-start 3)
+
+  (setq ac-use-menu-map t)
+  (setq ac-use-fuzzy t)
+
 #+END_SRC
 ** Smex
 #+BEGIN_SRC emacs-lisp
@@ -124,6 +136,7 @@ From [[http://emacsredux.com/blog/2013/04/21/edit-files-as-root/][emacsredux]]
 ** Clojure
 #+BEGIN_SRC emacs-lisp
 (add-hook 'clojure-mode-hook 'paredit-mode)
+  (add-hook 'ruby-mode-hook 'whitespace-cleanup-mode)
 #+END_SRC
 
 *** Cider
@@ -136,8 +149,8 @@ From [[http://emacsredux.com/blog/2013/04/21/edit-files-as-root/][emacsredux]]
 #+END_SRC
 ** Emacs lisp
 #+BEGIN_SRC emacs-lisp
-(add-hook 'emacs-lisp-mode-hook 'paredit-mode)
-
+  (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
+  (add-hook 'emacs-lisp-mode-hook 'whitespace-cleanup-mode)
 #+END_SRC
 ** Racket
 #+BEGIN_SRC emacs-lisp
