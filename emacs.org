@@ -44,8 +44,10 @@
   
   (exec-path-from-shell-initialize)
 
-(setq mac-command-key-is-meta t)
-    (setq mac-command-modifier 'meta)
+  (setq mac-command-key-is-meta t)
+  (setq mac-command-modifier 'meta)
+
+  (projectile-global-mode)
 #+END_SRC
 *** Browser
 #+BEGIN_SRC emacs-lisp
