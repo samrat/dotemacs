@@ -15,6 +15,9 @@
                            cider
                            geiser
                            magit
+                           paredit
+                           idle-highlight-mode
+                           color-theme-sanityinc-tomorrow
                            rainbow-delimiters
                            auto-complete
                            ac-nrepl
@@ -40,6 +43,9 @@
   (defalias 'yes-or-no-p 'y-or-n-p)
   
   (exec-path-from-shell-initialize)
+
+(setq mac-command-key-is-meta t)
+    (setq mac-command-modifier 'meta)
 #+END_SRC
 *** Browser
 #+BEGIN_SRC emacs-lisp
@@ -74,19 +80,19 @@
 #+END_SRC
 ** Font
 #+BEGIN_SRC emacs-lisp
-(set-face-attribute 'default nil
-                      :family "Inconsolata"
-                      :height 130
-                      :weight 'normal
-                      :width 'normal)
-
-  (when (functionp 'set-fontset-font)
-  (set-fontset-font "fontset-default"
-                    'unicode
-                    (font-spec :family "DejaVu Sans Mono"
-                               :width 'normal
-                               :size 12.4
-                               :weight 'normal)))
+  (set-face-attribute 'default nil
+                         :family "Monaco"
+                         :height 140
+                         :weight 'normal
+                         :width 'normal)
+  
+     (when (functionp 'set-fontset-font)
+     (set-fontset-font "fontset-default"
+                       'unicode
+                       (font-spec :family "DejaVu Sans Mono"
+                                  :width 'normal
+                                  :size 12.4
+                                  :weight 'normal)))
 #+END_SRC
 
 * Start server
@@ -109,8 +115,8 @@ From [[http://emacsredux.com/blog/2013/04/21/edit-files-as-root/][emacsredux]]
 
 * Programming
 #+BEGIN_SRC emacs-lisp
-(add-hook 'prog-mode-hook 'idle-highlight-mode)
-(define-key lisp-mode-shared-map (kbd "RET") 'reindent-then-newline-and-indent)
+  (add-hook 'prog-mode-hook 'idle-highlight-mode)
+  (define-key lisp-mode-shared-map (kbd "RET") 'reindent-then-newline-and-indent)
 #+END_SRC
 
 ** Clojure
@@ -162,8 +168,8 @@ From [[http://emacsredux.com/blog/2013/04/21/edit-files-as-root/][emacsredux]]
 
 ** Ruby
 #+BEGIN_SRC emacs-lisp
-(require 'rvm)
-(rvm-use-default)
+;;(require 'rvm)
+;;(rvm-use-default)
 #+END_SRC
 
 ** Haskell
@@ -225,9 +231,9 @@ From [[http://emacsredux.com/blog/2013/04/21/edit-files-as-root/][emacsredux]]
 * Org
 #+BEGIN_SRC emacs-lisp
   (require 'org-protocol)
-  (require 'ox-latex)
-  (setq org-directory "~/Dropbox/notes")
-  (setq org-agenda-files (list org-directory))
+  ;; (require 'ox-latex)
+  ;; (setq org-directory "~/Dropbox/notes")
+  ;; (setq org-agenda-files (list org-directory))
 
   (setq org-startup-indented t)
   (setq org-startup-folded t)
@@ -294,120 +300,4 @@ From [[http://emacsredux.com/blog/2013/04/21/edit-files-as-root/][emacsredux]]
                   :protocol "bookmark"
                   :function org-protocol-capture-and-finalize)))
 
-#+END_SRC
-* ERC
-#+BEGIN_SRC emacs-lisp
-  (setq erc-hide-list '("JOIN" "PART" "QUIT"))
-  
-#+END_SRC
-* Feeds
-#+BEGIN_SRC emacs-lisp
-    (require 'elfeed)
-    
-    (setq elfeed-feeds
-          '("http://nullprogram.com/feeds/"
-            "http://www.terminally-incoherent.com/blog/feed/"
-            "http://samrat.me/feeds/all.xml"
-            "http://planet.clojure.in/atom.xml"
-            "http://feeds.feedburner.com/alistapart/main"
-            "http://swizec.com/blog/feed/atom"
-            "http://feeds.feedburner.com/adequatelygood"
-            "http://lucumr.pocoo.org/feed.atom"
-            "http://feeds.feedburner.com/brainpickings/rss"
-            "http://feeds.feedburner.com/bkonkle-latest-posts"
-            "http://worrydream.com/feed.xml"
-            "http://briancarper.net/feed"
-            "http://clojurefun.wordpress.com/feed/"
-            "http://feeds.feedburner.com/codinghorror/"
-            "http://danariely.com/feed/"
-            "http://feed.dilbert.com/dilbert/blog"
-            "http://www.eflorenzano.com/blog/feeds/all/"
-            "http://www.exampler.com/blog/"
-            "http://feeds.feedburner.com/feross"
-            "http://feeds.feedburner.com/FlowingData"
-            "http://blog.dscpl.com.au/feeds/posts/default"
-            "http://www.hackwriting.com/feed/"
-            "http://www.jeffwofford.com/?feed=rss2"
-            "http://lethain.com/feeds/all/"
-            "http://www.willmcgugan.com/feed/"
-            "http://blog.jgc.org/feeds/posts/default"
-            "http://www.joelonsoftware.com/rss.xml"
-            "http://www.josscrowcroft.com/feed/"
-            "http://markos.gaivo.net/blog/?feed=rss2"
-            "http://feeds.feedburner.com/DavidCramernet"
-            "http://karlmendes.com/feed/"
-            "http://kennethreitz.com/feeds/all.atom.xml"
-            "http://longform.org/feed.rss"
-            "http://longreads.com/rss/"
-            "http://www.loper-os.org/?feed=rss2"
-            "http://jeremykun.com/feed/"
-            "http://biditacharya.wordpress.com/feed/"
-            "http://mattgemmell.com/atom.xml"
-            "http://matt.might.net/articles/feed.rss"
-            ;;"http://www.mechanicalgirl.com/feeds/all/"
-            "http://mitchellhashimoto.com/rss"
-            "http://blog.mixu.net/feed/"
-            "http://www.morethanseven.net/articles.atom"
-            "http://www.mostly-decidable.org/feeds/posts/default"
-            "http://normansoven.com/feed/"
-            "http://paulbuchheit.blogspot.com/feeds/posts/default"
-            "http://paulrouget.com/index.xml"
-            "http://feeds.feedburner.com/philippbosch"
-            "http://allendowney.blogspot.com/feeds/posts/default"
-            "http://reminiscential.wordpress.com/feed/"
-            "http://feeds.feedburner.com/rudiusmedia/rch"
-            ;; "http://www.saltycrane.com/feeds/latest/"
-            "http://www.sciten.com/rss"
-            "http://feeds.feedburner.com/techoctave"
-            "http://simplebits.com/feed/"
-            "http://slacy.com/blog/feed/"
-            "http://feeds2.feedburner.com/stevelosh"
-            "http://steve-yegge.blogspot.com/atom.xml"
-            "http://sympodial.com/rss"
-            "http://technomancy.us/feed/atom.xml"
-            "http://thadeusb.com/feed.atom"
-            "http://feeds.feedburner.com/JasonShen"
-            "http://feeds.feedburner.com/b-list-entries"
-            "http://www.johndcook.com/blog/feed/"
-            "http://blog.thelifeofkenneth.com/feeds/posts/default"
-            "http://feeds.feedburner.com/ThomasPelletier"
-            "http://feeds2.feedburner.com/UnderstandingUncertainty"
-            "http://feeds.feedburner.com/Vijaykirancom"
-            "http://devblog.avdi.org/feed/"
-            "http://waxy.org/index.xml"
-            "http://terrytao.wordpress.com/feed/"
-            "http://www.wisdomandwonder.com/feed"
-            "http://feeds.feedburner.com/holman"
-            "http://feeds.feedburner.com/ideolalia/zXGt"
-            "http://hobershort.wordpress.com/feed/"
-            "http://lemire.me/blog/feed/"
-            ;; "http://antirez.com/rss"
-            "http://feeds.feedburner.com/ChrisGranger"
-            "http://gladwell.typepad.com/gladwellcom/atom.xml"
-            "http://feeds.feedburner.com/catonmat"
-            "http://ignorethecode.net/blog/rss/"
-            "http://jessenoller.com/feed/"
-            "http://www.futurealoof.com/site.rss"
-            "http://feeds.feedburner.com/miraculous"
-            "http://prog21.dadgum.com/atom.xml"
-            "http://feeds.feedburner.com/rdegges"
-            "http://semilshah.wordpress.com/feed/"
-            "http://feeds.feedburner.com/SimpleBadLuck"
-            "http://feeds.feedburner.com/zachwill"
-            "http://lesswrong.com/wiki/Homepage/.rss"
-            "http://feeds.feedburner.com/Betterexplained"
-            "http://www.commandlinefu.com/feed/tenup"
-            "http://disclojure.org/feed/"
-            "http://www.learningclojure.com/feeds/posts/default"
-            "http://programmingpraxis.com/feed/"
-            "http://feeds.feedburner.com/thechangelog"
-            "http://whattheemacsd.com/atom.xml"
-            "http://isbullsh.it/rss.xml"
-            "http://feeds.feedburner.com/MusingsOfALispnik"
-            "http://feeds.feedburner.com/sl4m"
-            "http://feeds.feedburner.com/TomMoertelsBlog"
-            "http://planet.haskell.org/atom.xml"
-            "http://spencertipping.com/feed.atom"
-            "http://smyck.net/feed/"
-            "http://arrdem.com/feeds/index.xml"))
 #+END_SRC
