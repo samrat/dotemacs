@@ -17,7 +17,7 @@
                            magit
                            paredit
                            idle-highlight-mode
-                           autocomplete-mode
+                           auto-complete
                            color-theme-sanityinc-tomorrow
                            rainbow-delimiters
                            auto-complete
@@ -88,6 +88,10 @@
 (add-hook 'text-mode-hook 'turn-on-flyspell)
 #+END_SRC
 * Theme
+#+BEGIN_SRC emacs-lisp
+(powerline-default-theme)
+
+#+END_SRC
 ** Color theme
 #+BEGIN_SRC emacs-lisp
   (load-theme 'sanityinc-tomorrow-night t)
@@ -129,13 +133,14 @@ From [[http://emacsredux.com/blog/2013/04/21/edit-files-as-root/][emacsredux]]
 
 * Programming
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'prog-mode-hook 'idle-highlight-mode)
+  ;; (add-hook 'prog-mode-hook 'idle-highlight-mode)
   (define-key lisp-mode-shared-map (kbd "RET") 'reindent-then-newline-and-indent)
+  (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
 #+END_SRC
 
 ** Clojure
 #+BEGIN_SRC emacs-lisp
-(add-hook 'clojure-mode-hook 'paredit-mode)
+  (add-hook 'clojure-mode-hook #'enable-paredit-mode)
   (add-hook 'ruby-mode-hook 'whitespace-cleanup-mode)
 #+END_SRC
 
@@ -144,18 +149,18 @@ From [[http://emacsredux.com/blog/2013/04/21/edit-files-as-root/][emacsredux]]
   (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
   (setq cider-auto-select-error-buffer t)
   
-  (add-hook 'cider-repl-mode-hook 'paredit-mode)
+  (add-hook 'cider-repl-mode-hook #'enable-paredit-mode)
   (add-hook 'cider-repl-mode-hook 'rainbow-delimiters-mode)
 #+END_SRC
 ** Emacs lisp
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
+  (add-hook 'emacs-lisp-mode-hook #'enable-paredit-mode)
   (add-hook 'emacs-lisp-mode-hook 'whitespace-cleanup-mode)
 #+END_SRC
 ** Racket
 #+BEGIN_SRC emacs-lisp
 (setq geiser-active-implementations '(racket))
-(add-hook 'scheme-mode-hook 'paredit-mode)
+(add-hook 'scheme-mode-hook #'enable-paredit-mode)
 #+END_SRC
 
 ** SML
