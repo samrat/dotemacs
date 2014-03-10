@@ -142,6 +142,11 @@ From [[http://emacsredux.com/blog/2013/04/21/edit-files-as-root/][emacsredux]]
 #+BEGIN_SRC emacs-lisp
   (add-hook 'clojure-mode-hook #'enable-paredit-mode)
   (add-hook 'ruby-mode-hook 'whitespace-cleanup-mode)
+  (add-to-list 'ac-modes 'clojure-mode)
+
+  (setq nrepl-buffer-name-separator "-"
+        nrepl-buffer-name-show-port t
+        cider-switch-to-repl-command 'cider-switch-to-current-repl-buffer)
 #+END_SRC
 
 *** Cider
