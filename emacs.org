@@ -51,6 +51,7 @@
   (projectile-global-mode)
 
   (require 'whitespace-cleanup-mode)
+  (setq ido-use-virtual-buffers t)
 #+END_SRC
 *** Browser
 #+BEGIN_SRC emacs-lisp
