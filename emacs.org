@@ -53,6 +53,8 @@
 
   (require 'whitespace-cleanup-mode)
   (setq ido-use-virtual-buffers t)
+  ;; To fix weird Emacs pasteboard error
+  (setq save-interprogram-paste-before-kill nil)
 #+END_SRC
 *** Browser
 #+BEGIN_SRC emacs-lisp
