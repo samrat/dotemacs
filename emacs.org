@@ -177,6 +177,15 @@
   (add-hook 'cider-repl-mode-hook #'enable-paredit-mode)
   (add-hook 'cider-repl-mode-hook 'rainbow-delimiters-mode)
 #+END_SRC
+
+*** ac-nrepl
+#+BEGIN_SRC emacs-lisp
+(require 'ac-nrepl)
+(add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
+(add-hook 'cider-mode-hook 'ac-nrepl-setup)
+(eval-after-load "auto-complete"
+  '(add-to-list 'ac-modes 'cider-repl-mode))
+#+END_SRC
 ** Emacs lisp
 #+BEGIN_SRC emacs-lisp
   (add-hook 'emacs-lisp-mode-hook #'enable-paredit-mode)
