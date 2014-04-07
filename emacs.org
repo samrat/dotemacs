@@ -363,7 +363,6 @@
           "http://www.terminally-incoherent.com/blog/feed/"
           "http://samrat.me/feeds/all.xml"
           "http://planet.clojure.in/atom.xml"
-          "http://feeds.feedburner.com/alistapart/main"
           "http://swizec.com/blog/feed/atom"
           "http://feeds.feedburner.com/adequatelygood"
           "http://lucumr.pocoo.org/feed.atom"
@@ -465,6 +464,8 @@
           "http://raganwald.com/atom.xml"
           "http://www.gabrielweinberg.com/blog/atom.xml"
           "http://feeds.feedburner.com/ezyang"
+          "http://hackingdistributed.com/hackingdistributed.atom"
+          "http://www.chrisstucchio.com/blog/atom.xml"
           ;; Comics
           "http://www.smbc-comics.com/rss.php"
           "http://xkcd.com/atom.xml"))
