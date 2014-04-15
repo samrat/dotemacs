@@ -156,7 +156,7 @@
 ** Clojure
 #+BEGIN_SRC emacs-lisp
   (add-hook 'clojure-mode-hook #'enable-paredit-mode)
-  (add-hook 'ruby-mode-hook 'whitespace-cleanup-mode)
+  (add-hook 'clojure-mode-hook 'whitespace-cleanup-mode)
   (add-to-list 'ac-modes 'clojure-mode)
 
   (setq nrepl-buffer-name-separator "-"
