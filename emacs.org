@@ -433,7 +433,6 @@
           "http://gladwell.typepad.com/gladwellcom/atom.xml"
           "http://feeds.feedburner.com/catonmat"
           "http://ignorethecode.net/blog/rss/"
-          "http://www.futurealoof.com/site.rss"
           "http://feeds.feedburner.com/miraculous"
           "http://prog21.dadgum.com/atom.xml"
           "http://feeds.feedburner.com/rdegges"
@@ -448,7 +447,6 @@
           "http://feeds.feedburner.com/thechangelog"
           "http://whattheemacsd.com/atom.xml"
           "http://isbullsh.it/rss.xml"
-          "http://feeds.feedburner.com/MusingsOfALispnik"
           "http://feeds.feedburner.com/sl4m"
           "http://feeds.feedburner.com/TomMoertelsBlog"
           ("http://planet.haskell.org/atom.xml" planet)
@@ -468,5 +466,15 @@
           "http://matt-welsh.blogspot.com/feeds/posts/default"
           "http://www.mdswanson.com/atom.xml"
           ("http://www.smbc-comics.com/rss.php" comic)
-          ("http://xkcd.com/atom.xml" comic)))
+          ("http://xkcd.com/atom.xml" comic)
+          ("http://feeds.feedburner.com/Explosm" comic)
+          ("http://wingolog.org/feed/atom" blog)
+          ("http://rjlipton.wordpress.com/feed" blog compsci)
+          ("http://mybiasedcoin.blogspot.com/feeds/posts/default" blog compsci)
+          ("http://agtb.wordpress.com/feed/" blog)
+          ("http://www.scottaaronson.com/blog/?feed=rss2" blog compsci)
+          ("http://blog.nullspace.io/feed.xml" blog)
+          ("http://jozefg.bitbucket.org/rss.xml" blog)
+          ("http://www.paperplanes.de/rss.xml" blog)
+          ("http://adit.io/rss.xml" blog)))
 #+END_SRC
