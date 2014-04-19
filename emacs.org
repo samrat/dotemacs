@@ -223,8 +223,7 @@
 
 ** Haskell
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-  
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 #+END_SRC
 
 *** ghc-mod
