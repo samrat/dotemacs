@@ -224,6 +224,7 @@
 ** Haskell
 #+BEGIN_SRC emacs-lisp
   (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+  (add-hook 'haskell-mode-hook 'whitespace-cleanup-mode)
 #+END_SRC
 
 *** ghc-mod
