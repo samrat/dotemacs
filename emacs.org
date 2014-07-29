@@ -215,6 +215,27 @@
     (define-key sml-mode-map (kbd "C-c C-v") 'sml-eval-buffer)))
 #+END_SRC
 
+** OCaml
+#+BEGIN_SRC emacs-lisp
+  ;; Setup environment variables using opam
+  (dolist (var (car (read-from-string (shell-command-to-string "opam config env --sexp"))))
+    (setenv (car var) (cadr var)))
+  
+  ;; Update the emacs path
+  (setq exec-path (split-string (getenv "PATH") path-separator))
+  
+  ;; Update the emacs load path
+  (push (concat (getenv "OCAML_TOPLEVEL_PATH") "/../../share/emacs/site-lisp") load-path)
+  
+  ;; Automatically load utop.el
+  (autoload 'utop "utop" "Toplevel for OCaml" t)
+  
+  
+  (autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
+  (add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
+  (add-hook 'tuareg-mode-hook 'merlin-mode)
+  (add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
+#+END_SRC
 ** Ruby
 #+BEGIN_SRC emacs-lisp
 ;;(require 'rvm)
