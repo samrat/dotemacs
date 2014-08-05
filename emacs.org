@@ -505,5 +505,8 @@
           ("http://bit-player.org/feed" blog)
           ("https://www.schneier.com/blog/atom.xml" blog)
           ("http://austingwalters.com/feed/" blog)
-          ("http://fishbowl.pastiche.org/atom.xml" blog)))
+          ("http://fishbowl.pastiche.org/atom.xml" blog)
+          ("http://blog.vivekhaldar.com/rss" blog)
+          ("http://simblob.blogspot.com/feeds/posts/default" blog)
+          ("feed://eugene-wei.squarespace.com/blog?format=rss" blog)))
 #+END_SRC
