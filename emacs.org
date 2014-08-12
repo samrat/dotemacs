@@ -93,23 +93,23 @@
 #+END_SRC
 ** Color theme
 #+BEGIN_SRC emacs-lisp
-  (load-theme 'sanityinc-tomorrow-night t)
+  (load-theme 'spacegray t)
 #+END_SRC
 ** Font
 #+BEGIN_SRC emacs-lisp
   (set-face-attribute 'default nil
-                         :family "Monaco"
-                         :height 140
-                         :weight 'normal
-                         :width 'normal)
+                      :family "Monaco"
+                      :height 140
+                      :weight 'normal
+                      :width 'normal)
   
-     (when (functionp 'set-fontset-font)
-     (set-fontset-font "fontset-default"
-                       'unicode
-                       (font-spec :family "DejaVu Sans Mono"
-                                  :width 'normal
-                                  :size 12.4
-                                  :weight 'normal)))
+  (when (functionp 'set-fontset-font)
+    (set-fontset-font "fontset-default"
+                      'unicode
+                      (font-spec :family "DejaVu Sans Mono"
+                                 :width 'normal
+                                 :size 12.4
+                                 :weight 'normal)))
 #+END_SRC
 
 * Start server
