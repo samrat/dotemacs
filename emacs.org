@@ -18,9 +18,9 @@
                            paredit
                            idle-highlight-mode
                            auto-complete
+                           company
                            color-theme-sanityinc-tomorrow
                            rainbow-delimiters
-                           auto-complete
                            ac-nrepl
                            ag
                            color-theme-sanityinc-solarized
@@ -157,8 +157,7 @@
 #+BEGIN_SRC emacs-lisp
   (add-hook 'clojure-mode-hook #'enable-paredit-mode)
   (add-hook 'clojure-mode-hook 'whitespace-cleanup-mode)
-  (add-to-list 'ac-modes 'clojure-mode)
-
+  
   (setq nrepl-buffer-name-separator "-"
         nrepl-buffer-name-show-port t
         cider-switch-to-repl-command 'cider-switch-to-current-repl-buffer)
@@ -175,16 +174,18 @@
 
 *** ac-nrepl
 #+BEGIN_SRC emacs-lisp
-(require 'ac-nrepl)
-(add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
-(add-hook 'cider-mode-hook 'ac-nrepl-setup)
-(eval-after-load "auto-complete"
-  '(add-to-list 'ac-modes 'cider-repl-mode))
+  (add-hook 'cider-repl-mode-hook 'company-mode)
+  (add-hook 'cider-mode-hook 'company-mode)
+  
+  ;; (add-hook 'clojure-mode-hook 'company-mode)
+  (add-hook 'cider-mode-hook (lambda ()
+                               (local-set-key (kbd "TAB") 'company-complete)))
 #+END_SRC
 ** Emacs lisp
 #+BEGIN_SRC emacs-lisp
   (add-hook 'emacs-lisp-mode-hook #'enable-paredit-mode)
   (add-hook 'emacs-lisp-mode-hook 'whitespace-cleanup-mode)
+  (add-hook 'emacs-lisp-mode-hook 'company-mode)
 #+END_SRC
 ** Racket
 #+BEGIN_SRC emacs-lisp
