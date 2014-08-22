@@ -509,5 +509,5 @@
           ("http://fishbowl.pastiche.org/atom.xml" blog)
           ("http://blog.vivekhaldar.com/rss" blog)
           ("http://simblob.blogspot.com/feeds/posts/default" blog)
-          ("feed://eugene-wei.squarespace.com/blog?format=rss" blog)))
+          ("http://eugene-wei.squarespace.com/blog?format=rss" blog)))
 #+END_SRC
