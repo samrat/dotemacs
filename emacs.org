@@ -510,5 +510,6 @@
           ("http://blog.vivekhaldar.com/rss" blog)
           ("http://simblob.blogspot.com/feeds/posts/default" blog)
           ("http://eugene-wei.squarespace.com/blog?format=rss" blog)
-          ("http://fgiesen.wordpress.com/feed/" blog)))
+          ("http://fgiesen.wordpress.com/feed/" blog)
+          ("http://wavefunction.fieldofscience.com/feeds/posts/default" blog)))
 #+END_SRC
