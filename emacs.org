@@ -396,7 +396,6 @@
           "http://www.eflorenzano.com/blog/feeds/all/"
           "http://www.exampler.com/blog/"
           "http://feeds.feedburner.com/feross"
-          "http://feeds.feedburner.com/FlowingData"
           "http://blog.dscpl.com.au/feeds/posts/default"
           "http://www.hackwriting.com/feed/"
           "http://www.jeffwofford.com/?feed=rss2"
@@ -511,5 +510,10 @@
           ("http://simblob.blogspot.com/feeds/posts/default" blog)
           ("http://eugene-wei.squarespace.com/blog?format=rss" blog)
           ("http://fgiesen.wordpress.com/feed/" blog)
-          ("http://wavefunction.fieldofscience.com/feeds/posts/default" blog)))
+          ("http://wavefunction.fieldofscience.com/feeds/posts/default" blog)
+          ("http://mollyrocket.com/casey/stream_atom.rss" blog)
+          ("http://www.reddit.com/domain/samrat.me.rss" reddit myself)
+          ("http://kaygun.tumblr.com/rss" blog)
+          ("http://langster1980.blogspot.com/feeds/posts/default" blog)
+          ("http://robertoconcerto.blogspot.com/feeds/posts/default" blog)))
 #+END_SRC
