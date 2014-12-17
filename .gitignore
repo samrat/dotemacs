@@ -5,3 +5,8 @@ emacs.el
 /auto-save-list
 /places
 /tramp
+/url
+/eshell
+.smex-items
+.DS_Store
+projectile-bookmarks.eld
