@@ -12,11 +12,13 @@
       (package-refresh-contents))
     
     (defvar package-list '(better-defaults
+                           smex
                            cider
                            geiser
                            magit
                            paredit
                            idle-highlight-mode
+                           ido-ubiquitous
                            auto-complete
                            company
                            color-theme-sanityinc-tomorrow
@@ -26,8 +28,11 @@
                            color-theme-sanityinc-solarized
                            markdown-mode
                            zenburn-theme
+                           spacegray-theme
+                           projectile
+                           whitespace-cleanup-mode
                            exec-path-from-shell))
-  
+
     (dolist (p package-list)
       (when (not (package-installed-p p))
         (package-install p)))
@@ -87,10 +92,6 @@
 (add-hook 'text-mode-hook 'turn-on-flyspell)
 #+END_SRC
 * Theme
-#+BEGIN_SRC emacs-lisp
-(powerline-default-theme)
-
-#+END_SRC
 ** Color theme
 #+BEGIN_SRC emacs-lisp
   (load-theme 'spacegray t)
@@ -98,8 +99,8 @@
 ** Font
 #+BEGIN_SRC emacs-lisp
   (set-face-attribute 'default nil
-                      :family "Monaco"
-                      :height 140
+                      :family "Inconsolata"
+                      :height 120
                       :weight 'normal
                       :width 'normal)
   
