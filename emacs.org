@@ -533,5 +533,6 @@
           ("http://www.reddit.com/domain/samrat.me.rss" reddit myself)
           ("http://kaygun.tumblr.com/rss" blog)
           ("http://langster1980.blogspot.com/feeds/posts/default" blog)
-          ("http://robertoconcerto.blogspot.com/feeds/posts/default" blog)))
+          ("http://robertoconcerto.blogspot.com/feeds/posts/default" blog)
+          ("http://cbloomrants.blogspot.com/feeds/3907587030330198720/comments/default" blog)))
 #+END_SRC
