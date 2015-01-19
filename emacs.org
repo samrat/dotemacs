@@ -31,7 +31,8 @@
                            spacegray-theme
                            projectile
                            whitespace-cleanup-mode
-                           exec-path-from-shell))
+                           exec-path-from-shell
+                           function-arguments))
 
     (dolist (p package-list)
       (when (not (package-installed-p p))
@@ -171,6 +172,13 @@
   (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
 #+END_SRC
 
+** C
+*** Jumping to functions in current buffer
+Using `moo-jump-local` from package `function-arguments`:
+
+#+BEGIN_SRC emacs-lisp
+(fa-config-default)
+#+END_SRC
 ** Clojure
 #+BEGIN_SRC emacs-lisp
   (add-hook 'clojure-mode-hook #'enable-paredit-mode)
