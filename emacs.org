@@ -32,7 +32,8 @@
                            projectile
                            whitespace-cleanup-mode
                            exec-path-from-shell
-                           function-arguments))
+                           god-mode
+                           function-args))
 
     (dolist (p package-list)
       (when (not (package-installed-p p))
