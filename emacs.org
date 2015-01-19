@@ -95,8 +95,10 @@
 #+END_SRC
 ** God mode
 #+BEGIN_SRC emacs-lisp
+  (god-mode-all)
+
   (global-set-key (kbd "<escape>") 'god-mode-all)
-  
+
   (defun god-mode-update-cursor ()
     (let ((limited-colors-p (> 257 (length (defined-colors)))))
       (cond (god-local-mode (progn
