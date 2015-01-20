@@ -96,9 +96,17 @@
 ** God mode
 #+BEGIN_SRC emacs-lisp
   (god-mode-all)
-
+  (setq god-exempt-major-modes nil)
+  (setq god-exempt-predicates nil)
+  
   (global-set-key (kbd "<escape>") 'god-mode-all)
-
+  
+  
+  (require 'god-mode-isearch)
+  (define-key isearch-mode-map (kbd "<escape>") 'god-mode-isearch-activate)
+  (define-key god-mode-isearch-map (kbd "<escape>") 'god-mode-isearch-disable)
+  
+  
   (defun god-mode-update-cursor ()
     (let ((limited-colors-p (> 257 (length (defined-colors)))))
       (cond (god-local-mode (progn
