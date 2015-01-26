@@ -33,7 +33,8 @@
                            whitespace-cleanup-mode
                            exec-path-from-shell
                            god-mode
-                           function-args))
+                           function-args
+                           keychain-environment))
 
     (dolist (p package-list)
       (when (not (package-installed-p p))
@@ -115,10 +116,15 @@
             (t (progn
                  (set-face-background 'mode-line (if limited-colors-p "black" "#0a2832"))
                  (set-face-background 'mode-line-inactive (if limited-colors-p "black" "#0a2832")))))))
-  
+
   (add-hook 'god-mode-enabled-hook 'god-mode-update-cursor)
   (add-hook 'god-mode-disabled-hook 'god-mode-update-cursor)
-  
+
+#+END_SRC
+** Load Keychain environment vars
+To avoid having to type in SSH passphrase
+#+BEGIN_SRC emacs-lisp
+(keychain-refresh-environment)
 #+END_SRC
 * Theme
 ** Color theme
