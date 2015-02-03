@@ -553,5 +553,6 @@ Using `moo-jump-local` from package `function-arguments`:
           ("http://kaygun.tumblr.com/rss" blog)
           ("http://langster1980.blogspot.com/feeds/posts/default" blog)
           ("http://robertoconcerto.blogspot.com/feeds/posts/default" blog)
-          ("http://cbloomrants.blogspot.com/feeds/3907587030330198720/comments/default" blog)))
+          ("http://cbloomrants.blogspot.com/feeds/3907587030330198720/comments/default" blog)
+          ("http://fabiensanglard.net/rss.xml" blog)))
 #+END_SRC
