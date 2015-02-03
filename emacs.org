@@ -352,6 +352,9 @@ Using `moo-jump-local` from package `function-arguments`:
   (setq org-startup-indented t)
   (setq org-startup-folded t)
   (setq org-src-fontify-natively t)
+
+  (eval-after-load 'org
+    '(setf org-highlight-latex-and-related '(latex)))
 #+END_SRC
 ** Org keys   
 #+BEGIN_SRC emacs-lisp
