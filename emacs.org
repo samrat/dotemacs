@@ -454,7 +454,6 @@ Using `moo-jump-local` from package `function-arguments`:
           "http://www.loper-os.org/?feed=rss2"
           "http://jeremykun.com/feed/"
           "http://biditacharya.wordpress.com/feed/"
-          "http://mattgemmell.com/atom.xml"
           "http://matt.might.net/articles/feed.rss"
           "http://blog.mixu.net/feed/"
           "http://www.morethanseven.net/articles.atom"
