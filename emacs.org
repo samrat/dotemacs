@@ -190,6 +190,14 @@ To avoid having to type in SSH passphrase
 #+END_SRC
 
 ** C
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'c-mode-hook 'whitespace-cleanup-mode)
+  (add-hook 'c-mode-hook
+            (lambda ()
+              (define-key c-mode-base-map (kbd "C-c C-k") 'compile)
+              (define-key c-mode-base-map (kbd "C-c C-j") 'moo-jump-local)))
+#+END_SRC
+
 *** Jumping to functions in current buffer
 Using `moo-jump-local` from package `function-arguments`:
 
