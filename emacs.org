@@ -244,6 +244,10 @@ Using `moo-jump-local` from package `function-arguments`:
 (add-hook 'scheme-mode-hook #'enable-paredit-mode)
 #+END_SRC
 
+Racket REPL sometimes goes into read-only mode
+#+BEGIN_SRC emacs-lisp
+  (setq geiser-repl-read-only-prompt-p nil)
+#+END_SRC
 ** SML
 #+BEGIN_SRC emacs-lisp
 (setenv "PATH" (concat "/usr/lib/smlnj/bin:" (getenv "PATH")))
