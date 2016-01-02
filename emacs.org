@@ -32,7 +32,6 @@
                            projectile
                            whitespace-cleanup-mode
                            exec-path-from-shell
-                           god-mode
                            function-args
                            keychain-environment))
 
@@ -94,33 +93,6 @@
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (add-hook 'text-mode-hook 'turn-on-flyspell)
 #+END_SRC
-** God mode
-#+BEGIN_SRC emacs-lisp
-  (god-mode-all)
-  (setq god-exempt-major-modes nil)
-  (setq god-exempt-predicates nil)
-  
-  (global-set-key (kbd "<escape>") 'god-mode-all)
-  
-  
-  (require 'god-mode-isearch)
-  (define-key isearch-mode-map (kbd "<escape>") 'god-mode-isearch-activate)
-  (define-key god-mode-isearch-map (kbd "<escape>") 'god-mode-isearch-disable)
-  
-  
-  (defun god-mode-update-cursor ()
-    (let ((limited-colors-p (> 257 (length (defined-colors)))))
-      (cond (god-local-mode (progn
-                              (set-face-background 'mode-line (if limited-colors-p "white" "#551a8b"))
-                              (set-face-background 'mode-line-inactive (if limited-colors-p "white" "#551a8b"))))
-            (t (progn
-                 (set-face-background 'mode-line (if limited-colors-p "black" "#0a2832"))
-                 (set-face-background 'mode-line-inactive (if limited-colors-p "black" "#0a2832")))))))
-
-  (add-hook 'god-mode-enabled-hook 'god-mode-update-cursor)
-  (add-hook 'god-mode-disabled-hook 'god-mode-update-cursor)
-
-#+END_SRC
 ** Load Keychain environment vars
 To avoid having to type in SSH passphrase
 #+BEGIN_SRC emacs-lisp
@@ -135,7 +107,7 @@ To avoid having to type in SSH passphrase
 #+BEGIN_SRC emacs-lisp
   (set-face-attribute 'default nil
                       :family "Inconsolata"
-                      :height 120
+                      :height 130
                       :weight 'normal
                       :width 'normal)
   
@@ -274,23 +246,23 @@ Racket REPL sometimes goes into read-only mode
 ** OCaml
 #+BEGIN_SRC emacs-lisp
   ;; Setup environment variables using opam
-  (dolist (var (car (read-from-string (shell-command-to-string "opam config env --sexp"))))
-    (setenv (car var) (cadr var)))
-  
-  ;; Update the emacs path
-  (setq exec-path (split-string (getenv "PATH") path-separator))
-  
-  ;; Update the emacs load path
-  (push (concat (getenv "OCAML_TOPLEVEL_PATH") "/../../share/emacs/site-lisp") load-path)
-  
-  ;; Automatically load utop.el
-  (autoload 'utop "utop" "Toplevel for OCaml" t)
-  
-  
-  (autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
-  (add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
-  (add-hook 'tuareg-mode-hook 'merlin-mode)
-  (add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
+  ;; (dolist (var (car (read-from-string (shell-command-to-string "opam config env --sexp"))))
+  ;;   (setenv (car var) (cadr var)))
+
+  ;; ;; Update the emacs path
+  ;; (setq exec-path (split-string (getenv "PATH") path-separator))
+
+  ;; ;; Update the emacs load path
+  ;; (push (concat (getenv "OCAML_TOPLEVEL_PATH") "/../../share/emacs/site-lisp") load-path)
+
+  ;; ;; Automatically load utop.el
+  ;; (autoload 'utop "utop" "Toplevel for OCaml" t)
+
+
+  ;; (autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
+  ;; (add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
+  ;; (add-hook 'tuareg-mode-hook 'merlin-mode)
+  ;; (add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
 #+END_SRC
 ** Ruby
 #+BEGIN_SRC emacs-lisp
@@ -343,15 +315,10 @@ Racket REPL sometimes goes into read-only mode
 #+END_SRC
 * VC
 #+BEGIN_SRC emacs-lisp
-(eval-after-load 'diff-mode
-  '(progn
-     (set-face-foreground 'diff-added "green4")
-     (set-face-foreground 'diff-removed "red3")))
-
-(eval-after-load 'magit
-  '(progn
-     (set-face-foreground 'magit-diff-add "green4")
-     (set-face-foreground 'magit-diff-del "red3")))
+  (eval-after-load 'diff-mode
+    '(progn
+       (set-face-foreground 'diff-added "green4")
+       (set-face-foreground 'diff-removed "red3")))
 #+END_SRC
 
 * Org
@@ -401,42 +368,9 @@ Racket REPL sometimes goes into read-only mode
         (:tangle . "no")
         (:padnewline . "yes")))
 #+END_SRC
-** Capture templates
-#+BEGIN_SRC emacs-lisp
-(setq org-capture-templates
-      '(("t" "Todo" entry (file+headline "todo.org" "Unsorted") "* TODO %i%?")
-        ("n" "Notes" entry (file+headline "notes.org" "Notes") "** %? ")
-        ("j" "Journal" entry (file+datetree "journal.org") "* %i%?")
-        ("C" "Coursera" entry (file+headline "samrat.org" "Coursera")
-         "* NEXT %?%a\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n%i" :prepend t)
-        ("w" "Default template"
-          entry
-          (file+headline "~/notes/samrat.org" "Bookmarks")
-          "* %c\n %u\n\n  %i")))
-#+END_SRC
-*** Org protocol
-#+BEGIN_SRC emacs-lisp
-  (defun org-protocol-capture-and-finalize (info)
-    "Like org-protocol-capture, but finalizes capture."
-    (if (and (boundp 'org-stored-links)
-             (progn (org-protocol-do-capture info)
-                    (org-capture-finalize)))
-        (message "Item captured."))
-    nil)
-
-  (setq org-protocol-protocol-alist
-               '(("bookmark"
-                  :protocol "bookmark"
-                  :function org-protocol-capture-and-finalize)))
-
-#+END_SRC
-* ERC
-#+BEGIN_SRC emacs-lisp
-  (setq erc-hide-list '("JOIN" "PART" "QUIT"))
-#+END_SRC
 * Feeds
 #+BEGIN_SRC emacs-lisp
-  (require 'elfeed)
+  ;; (require 'elfeed)
   
   (setq elfeed-feeds
         '("http://nullprogram.com/feed/"
