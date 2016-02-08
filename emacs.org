@@ -33,6 +33,7 @@
                            whitespace-cleanup-mode
                            exec-path-from-shell
                            function-args
+                           ggtags
                            keychain-environment))
 
     (dolist (p package-list)
@@ -312,6 +313,14 @@ Racket REPL sometimes goes into read-only mode
       (search-forward-regexp "^date: +")
       (kill-line)
       (insert (format-time-string "%Y-%m-%dT%H:%M:%SZ" nil t))))
+#+END_SRC
+* ggtags
+#+BEGIN_SRC emacs-lisp
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
+              (ggtags-mode 1))))
+
 #+END_SRC
 * VC
 #+BEGIN_SRC emacs-lisp
