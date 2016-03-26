@@ -45,6 +45,7 @@
 #+BEGIN_SRC emacs-lisp
   (setq inhibit-startup-screen t)
   (show-paren-mode 1)
+  (display-time-mode 1)
   (ido-ubiquitous t)
   (setq ido-auto-merge-work-directories-length -1)
   (column-number-mode)
@@ -102,7 +103,7 @@ To avoid having to type in SSH passphrase
 * Theme
 ** Color theme
 #+BEGIN_SRC emacs-lisp
-  (load-theme 'spacegray t)
+  (load-theme 'zenburn t)
 #+END_SRC
 ** Font
 #+BEGIN_SRC emacs-lisp
