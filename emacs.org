@@ -212,6 +212,15 @@ Using `moo-jump-local` from package `function-arguments`:
   (add-hook 'emacs-lisp-mode-hook 'whitespace-cleanup-mode)
   (add-hook 'emacs-lisp-mode-hook 'company-mode)
 #+END_SRC
+** Common Lisp
+Enable paredit
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'lisp-mode-hook #'enable-paredit-mode)
+#+END_SRC
+#+BEGIN_SRC emacs-lisp
+ (setq inferior-lisp-program "/usr/bin/sbcl")
+ (setq slime-contribs '(slime-fancy))
+#+END_SRC
 ** Racket
 #+BEGIN_SRC emacs-lisp
 (setq geiser-active-implementations '(racket))
