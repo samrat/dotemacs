@@ -18,7 +18,7 @@
                            magit
                            paredit
                            idle-highlight-mode
-                           ido-ubiquitous
+                           ;; ido-ubiquitous
                            auto-complete
                            company
                            color-theme-sanityinc-tomorrow
@@ -46,19 +46,22 @@
   (setq inhibit-startup-screen t)
   (show-paren-mode 1)
   (display-time-mode 1)
-  (ido-ubiquitous t)
+  (scroll-bar-mode -1)
+  (tool-bar-mode -1)
+  (ido-ubiquitous-mode)
   (setq ido-auto-merge-work-directories-length -1)
   (column-number-mode)
-  
+
   ;; too lazy to type yes(or no)
   (defalias 'yes-or-no-p 'y-or-n-p)
-  
+
   (exec-path-from-shell-initialize)
 
   (setq mac-command-key-is-meta t)
   (setq mac-command-modifier 'meta)
 
   (projectile-global-mode)
+  (aggressive-indent-global-mode)
 
   (require 'whitespace-cleanup-mode)
   (setq ido-use-virtual-buffers t)
@@ -109,7 +112,7 @@ To avoid having to type in SSH passphrase
 #+BEGIN_SRC emacs-lisp
   (set-face-attribute 'default nil
                       :family "Inconsolata"
-                      :height 130
+                      :height 190
                       :weight 'normal
                       :width 'normal)
   
@@ -190,7 +193,7 @@ Using `moo-jump-local` from package `function-arguments`:
 
 *** Cider
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+  ;; (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
   (setq cider-auto-select-error-buffer t)
   
   (add-hook 'cider-repl-mode-hook #'enable-paredit-mode)
