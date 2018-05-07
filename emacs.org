@@ -62,11 +62,22 @@
 
   (projectile-global-mode)
   (aggressive-indent-global-mode)
+  (global-linum-mode)
 
   (require 'whitespace-cleanup-mode)
   (setq ido-use-virtual-buffers t)
   ;; To fix weird Emacs pasteboard error
   (setq save-interprogram-paste-before-kill nil)
+
+  ;; meaningful names for buffers with the same name
+  ;; from prelude
+  ;; https://github.com/bbatsov/prelude
+  (require 'uniquify)
+  (setq uniquify-buffer-name-style 'forward)
+  (setq uniquify-separator "/")
+  (setq uniquify-after-kill-buffer-p t)    ; rename after killing uniquified
+  (setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
+
 #+END_SRC
 ** autocomplete-mode
 #+BEGIN_SRC emacs-lisp
