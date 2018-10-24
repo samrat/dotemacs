@@ -18,17 +18,14 @@
                            magit
                            paredit
                            idle-highlight-mode
-                           ;; ido-ubiquitous
                            auto-complete
                            company
                            color-theme-sanityinc-tomorrow
                            rainbow-delimiters
-                           ac-nrepl
-                           ag
+                           rg
                            color-theme-sanityinc-solarized
                            markdown-mode
                            zenburn-theme
-                           spacegray-theme
                            projectile
                            whitespace-cleanup-mode
                            exec-path-from-shell
@@ -48,7 +45,6 @@
   (display-time-mode 1)
   (scroll-bar-mode -1)
   (tool-bar-mode -1)
-  (ido-ubiquitous-mode)
   (setq ido-auto-merge-work-directories-length -1)
   (column-number-mode)
 
@@ -123,7 +119,7 @@ To avoid having to type in SSH passphrase
 #+BEGIN_SRC emacs-lisp
   (set-face-attribute 'default nil
                       :family "Inconsolata"
-                      :height 190
+                      :height 150
                       :weight 'normal
                       :width 'normal)
   
