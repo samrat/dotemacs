@@ -57,7 +57,6 @@
   (setq mac-command-modifier 'meta)
 
   (projectile-global-mode)
-  (aggressive-indent-global-mode)
   (global-linum-mode)
 
   (require 'whitespace-cleanup-mode)
@@ -182,12 +181,7 @@ To avoid having to type in SSH passphrase
               (define-key c-mode-base-map (kbd "C-c C-j") 'moo-jump-local)))
 #+END_SRC
 
-*** Jumping to functions in current buffer
-Using `moo-jump-local` from package `function-arguments`:
 
-#+BEGIN_SRC emacs-lisp
-(fa-config-default)
-#+END_SRC
 ** Clojure
 #+BEGIN_SRC emacs-lisp
   (add-hook 'clojure-mode-hook #'enable-paredit-mode)
@@ -380,7 +374,6 @@ Racket REPL sometimes goes into read-only mode
  '((clojure . t)
    (scheme . t)
    (python . t)
-   (sh . t)
    (R . t)
    (haskell . t)))
 
