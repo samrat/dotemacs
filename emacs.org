@@ -296,6 +296,12 @@ Racket REPL sometimes goes into read-only mode
   (autoload 'ghc-init "ghc" nil t)
   (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
 #+END_SRC
+** Rust
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'rust-mode-hook #'racer-mode)
+  (add-hook 'racer-mode-hook #'eldoc-mode)
+  (add-hook 'rust-mode-hook #'flycheck-rust-setup)
+#+END_SRC
 * Ecstatic
 #+BEGIN_SRC emacs-lisp
   (defvar blog-dir "/Users/samrat/code/samrat.github.com/"
