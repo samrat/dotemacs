@@ -350,6 +350,13 @@ Racket REPL sometimes goes into read-only mode
        (set-face-foreground 'diff-removed "red3")))
 #+END_SRC
 
+* Unicode
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c C-i f") "⊥")
+  (global-set-key (kbd "C-c C-i l") "λ")
+  (global-set-key (kbd "C-c C-i c") "∧")
+  (global-set-key (kbd "C-c C-i d") "∨")
+#+END_SRC
 * Org
 #+BEGIN_SRC emacs-lisp
   (require 'org-protocol)
