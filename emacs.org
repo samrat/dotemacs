@@ -369,6 +369,9 @@ Racket REPL sometimes goes into read-only mode
   (setq org-startup-folded t)
   (setq org-src-fontify-natively t)
 
+  (setq-default anki-editor-use-math-jax t)
+  (require 'anki-editor)
+
   (eval-after-load 'org
     '(setf org-highlight-latex-and-related '(latex)))
 #+END_SRC
