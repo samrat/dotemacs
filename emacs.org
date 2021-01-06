@@ -47,6 +47,7 @@
   (tool-bar-mode -1)
   (setq ido-auto-merge-work-directories-length -1)
   (column-number-mode)
+  (setq visible-bell nil)
 
   ;; too lazy to type yes(or no)
   (defalias 'yes-or-no-p 'y-or-n-p)
