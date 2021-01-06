@@ -48,6 +48,7 @@
   (tool-bar-mode -1)
   (setq ido-auto-merge-work-directories-length -1)
   (column-number-mode)
+  (setq visible-bell nil)
 
   ;; too lazy to type yes(or no)
   (defalias 'yes-or-no-p 'y-or-n-p)
@@ -57,7 +58,10 @@
   (setq mac-command-key-is-meta t)
   (setq mac-command-modifier 'meta)
 
-  (projectile-global-mode)
+  (projectile-mode +1)
+  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+
   (global-display-line-numbers-mode)
 
   (require 'whitespace-cleanup-mode)
@@ -200,16 +204,6 @@ To avoid having to type in SSH passphrase
   
   (add-hook 'cider-repl-mode-hook #'enable-paredit-mode)
   (add-hook 'cider-repl-mode-hook 'rainbow-delimiters-mode)
-#+END_SRC
-
-*** ac-nrepl
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'cider-repl-mode-hook 'company-mode)
-  (add-hook 'cider-mode-hook 'company-mode)
-  
-  ;; (add-hook 'clojure-mode-hook 'company-mode)
-  (add-hook 'cider-mode-hook (lambda ()
-                               (local-set-key (kbd "TAB") 'company-complete)))
 #+END_SRC
 ** Emacs lisp
 #+BEGIN_SRC emacs-lisp
