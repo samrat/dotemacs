@@ -2,15 +2,16 @@
 #+BEGIN_SRC emacs-lisp
   (require 'package)
     (setq package-archives
-          '(("melpa" . "https://stable.melpa.org/packages/")
-            ("marmalade" . "http://marmalade-repo.org/packages/")
-            ("org" . "http://orgmode.org/elpa/")
-            ("gnu" . "http://elpa.gnu.org/packages/")))
+          '(("melpa" . "https://melpa.org/packages/")
+            ("gnu" . "http://elpa.gnu.org/packages/")
+            ("org" . "http://orgmode.org/elpa/")))
     (package-initialize)
-    
+
     (when (not package-archive-contents)
       (package-refresh-contents))
-    
+
+    (require 'use-package)
+
     (defvar package-list '(better-defaults
                            smex
                            cider
@@ -298,9 +299,13 @@ Racket REPL sometimes goes into read-only mode
 #+END_SRC
 ** Rust
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'rust-mode-hook #'racer-mode)
-  (add-hook 'racer-mode-hook #'eldoc-mode)
-  (add-hook 'rust-mode-hook #'flycheck-rust-setup)
+  (use-package rustic
+    :mode ("\\.rs\\'" . rustic-mode)
+    :config
+    (setq rustic-lsp-client 'eglot
+          rustic-lsp-server 'rust-analyzer
+          rustic-analyzer-command '("/usr/bin/rust-analyzer")))
+#+END_SRC
 #+END_SRC
 * Ecstatic
 #+BEGIN_SRC emacs-lisp
