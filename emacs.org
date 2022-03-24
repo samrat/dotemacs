@@ -332,6 +332,15 @@ Racket REPL sometimes goes into read-only mode
       (search-forward-regexp "^date: +")
       (kill-line)
       (insert (format-time-string "%Y-%m-%dT%H:%M:%SZ" nil t))))
+
+(defun writing/new-entry (title)
+  "Start a new log entry."
+  (interactive "MTitle: ")
+  (insert (format "%s\n" (if (string= "" title)
+                             (format-time-string "%Y-%m-%d %-I:%M %p")
+                           title)))
+  (insert "===============================================================================")
+  )
 #+END_SRC
 * ggtags
 #+BEGIN_SRC emacs-lisp
