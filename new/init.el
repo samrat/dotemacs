@@ -82,7 +82,6 @@
 (set-keyboard-coding-system 'utf-8)
 (setq-default tab-width 4
           indent-tabs-mode nil)
-(global-set-key (kbd "C-x k") 'kill-this-buffer)
 (add-hook 'before-save-hook 'whitespace-cleanup)
    (setq create-lockfiles nil)
 
@@ -123,7 +122,7 @@
   :hook ((cider-mode . eldoc-mode)
      (cider-repl-mode . paredit-mode)
      (cider-repl-mode . (lambda ()
-                  (local-set-key (kbd "C-l") 'cider-repl-clear-buffer)))))
+                  (local-set-key (kbd "C-c C-l") 'cider-repl-clear-buffer)))))
 
 
 (use-package ido-vertical-mode
@@ -146,13 +145,32 @@
   ;; Use [Enter] to navigate into the directory, not dired-open it.
   (define-key ivy-minibuffer-map (kbd "C-m") 'ivy-alt-done))
 
+
+(use-package rg
+  :ensure t)
+
+(use-package dumb-jump
+  :ensure t
+  :config
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
+  (define-key dumb-jump-mode-map (kbd "C-M-q") nil)
+  (define-key dumb-jump-mode-map (kbd "C-M-p") nil)
+  (define-key dumb-jump-mode-map (kbd "C-c d g") 'dumb-jump-go)
+  (define-key dumb-jump-mode-map (kbd "C-c d b") 'dumb-jump-back)
+  (setq dumb-jump-selector 'ivy
+        dumb-jump-prefer-searcher 'rg))
+
+
+(use-package zig-mode
+  :ensure t)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(smex uniquify paredit vlf terraform-mode yaml-mode typescript-mode flycheck-golangci-lint marginalia browse-kill-ring selectrum-prescient selectrum omnisharp csharp-mode ag exec-path-from-shell go-mode ivy-rich counsel ivy yasnippet which-key use-package smartparens projectile magit lsp-ui flycheck expand-region doom-themes diminish crux company-lsp avy))
+   '(zig-mode dumb-jump rg smex uniquify paredit vlf terraform-mode yaml-mode typescript-mode flycheck-golangci-lint marginalia browse-kill-ring selectrum-prescient selectrum omnisharp csharp-mode ag exec-path-from-shell go-mode ivy-rich counsel ivy yasnippet which-key use-package smartparens projectile magit lsp-ui flycheck expand-region doom-themes diminish crux company-lsp avy))
  '(safe-local-variable-values
    '((nrepl-use-ssh-fallback-for-remote-hosts . t)
      (cider-ns-refresh-after-fn . "user/start")
