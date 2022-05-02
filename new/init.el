@@ -31,11 +31,28 @@
 (setq inhibit-startup-screen t)
 (set-frame-font "Inconsolata 20" nil t)
 
+
+
+;; meaningful names for buffers with the same name
+;; from prelude
+;; https://github.com/bbatsov/prelude
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+(setq uniquify-separator "/")
+(setq uniquify-after-kill-buffer-p t)    ; rename after killing uniquified
+(setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
+
+
 (use-package magit
   :ensure t
   :bind ("C-x g" . 'magit-status)
   :config
   (setq magit-set-upstream-on-push 'askifnotset))
+
+(use-package smex
+  :ensure t
+  :config
+  (global-set-key (kbd "M-x") 'smex))
 
 (use-package doom-themes
   :ensure t
@@ -135,7 +152,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(paredit vlf terraform-mode yaml-mode typescript-mode flycheck-golangci-lint marginalia browse-kill-ring selectrum-prescient selectrum omnisharp csharp-mode ag exec-path-from-shell go-mode ivy-rich counsel ivy yasnippet which-key use-package smartparens projectile magit lsp-ui flycheck expand-region doom-themes diminish crux company-lsp avy))
+   '(smex uniquify paredit vlf terraform-mode yaml-mode typescript-mode flycheck-golangci-lint marginalia browse-kill-ring selectrum-prescient selectrum omnisharp csharp-mode ag exec-path-from-shell go-mode ivy-rich counsel ivy yasnippet which-key use-package smartparens projectile magit lsp-ui flycheck expand-region doom-themes diminish crux company-lsp avy))
  '(safe-local-variable-values
    '((nrepl-use-ssh-fallback-for-remote-hosts . t)
      (cider-ns-refresh-after-fn . "user/start")
