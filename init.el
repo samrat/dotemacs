@@ -49,10 +49,6 @@
   :config
   (setq magit-set-upstream-on-push 'askifnotset))
 
-(use-package smex
-  :ensure t
-  :config
-  (global-set-key (kbd "M-x") 'smex))
 
 (use-package doom-themes
   :ensure t
@@ -159,6 +155,13 @@
   (define-key dumb-jump-mode-map (kbd "C-c d b") 'dumb-jump-back)
   (setq dumb-jump-selector 'ivy
         dumb-jump-prefer-searcher 'rg))
+
+
+(use-package counsel
+  :ensure t
+  :config
+  (setcdr (assoc 'counsel-M-x ivy-initial-inputs-alist) "")
+  :bind (("M-x" . counsel-M-x)))
 
 
 (use-package zig-mode
