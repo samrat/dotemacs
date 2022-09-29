@@ -167,6 +167,15 @@
 (use-package zig-mode
   :ensure t)
 
+(defun writing/new-entry (title)
+  "Start a new log entry."
+  (interactive "MTitle: ")
+  (insert (format "%s\n" (if (string= "" title)
+                             (format-time-string "%Y-%m-%d %-I:%M %p")
+                           title)))
+  (insert "===============================================================================")
+  )
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
