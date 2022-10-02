@@ -167,6 +167,12 @@
 (use-package zig-mode
   :ensure t)
 
+(use-package org
+  :hook ((org-mode . auto-fill-mode)
+         (org-mode . org-indent-mode))
+  :config
+  (setq org-startup-folded t))
+
 (defun writing/new-entry (title)
   "Start a new log entry."
   (interactive "MTitle: ")
