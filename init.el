@@ -42,6 +42,10 @@
 (setq uniquify-after-kill-buffer-p t)    ; rename after killing uniquified
 (setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
 
+;; Shift+arrow keys to move between buffers
+(when (fboundp 'windmove-default-keybindings)
+  (windmove-default-keybindings))
+
 
 (use-package magit
   :ensure t
