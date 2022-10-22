@@ -1,3 +1,5 @@
+(load "~/.emacs.d/private")
+
 (setq user-full-name "Samrat Man Singh")
 
 (setq gc-cons-threshold 50000000)
@@ -165,10 +167,25 @@
   :ensure t
   :config
   (setcdr (assoc 'counsel-M-x ivy-initial-inputs-alist) "")
-  :bind (("M-x" . counsel-M-x)))
-
+  :bind (("M-x" . counsel-M-x)
+         ("C-c i" . counsel-imenu)))
 
 (use-package zig-mode
+  :ensure t)
+
+(use-package hledger-mode
+  :ensure t)
+
+(use-package beeminder
+  :ensure t)
+
+(use-package markdown-mode
+  :ensure t)
+
+(use-package cmake-mode
+  :ensure t)
+
+(use-package lua-mode
   :ensure t)
 
 (use-package org
@@ -176,6 +193,9 @@
          (org-mode . org-indent-mode))
   :config
   (setq org-startup-folded t))
+
+(use-package c++-mode
+  :bind (("C-c C-k" . compile)))
 
 (defun writing/new-entry (title)
   "Start a new log entry."
@@ -192,7 +212,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(zig-mode dumb-jump rg smex uniquify paredit vlf terraform-mode yaml-mode typescript-mode flycheck-golangci-lint marginalia browse-kill-ring selectrum-prescient selectrum omnisharp csharp-mode ag exec-path-from-shell go-mode ivy-rich counsel ivy yasnippet which-key use-package smartparens projectile magit lsp-ui flycheck expand-region doom-themes diminish crux company-lsp avy))
+   '(lua-mode glsl-mode cmake-mode rust-mode beeminder nix-mode hledger-mode markdown-mode zig-mode dumb-jump rg smex uniquify paredit vlf terraform-mode yaml-mode typescript-mode flycheck-golangci-lint marginalia browse-kill-ring selectrum-prescient selectrum omnisharp csharp-mode ag exec-path-from-shell go-mode ivy-rich counsel ivy yasnippet which-key use-package smartparens projectile magit lsp-ui flycheck expand-region doom-themes diminish crux company-lsp avy))
  '(safe-local-variable-values
    '((nrepl-use-ssh-fallback-for-remote-hosts . t)
      (cider-ns-refresh-after-fn . "user/start")
